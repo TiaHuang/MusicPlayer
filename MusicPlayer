@@ -141,7 +141,7 @@ void setup() {
   // This may wait forever if the SDA & SCL pins lack
   // pullup resistorss
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+  sgtl5000_1.volume(0.2);
 
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
@@ -211,7 +211,7 @@ void playFile(const char *filename)
 void loop() {
   //  playFile("GOLD.WAV");  // filenames are always uppercase 8.3 format
   //  delay(500);
-  //  playFile("6INCH.WAV");
+  //  playFile("IRREPLACEABLE.WAV");
   //  delay(500);
   //  playFile("SNOW.WAV");
   //  delay(500);
@@ -247,7 +247,7 @@ void loop() {
 
   //Serial.print((int)r ); Serial.print(" "); Serial.print((int)g);Serial.print(" ");  Serial.println((int)b );
 
-  testColor(r, g, b);
+  tiaTestsColor(r, g, b);
   
   //function
   analogWrite(redpin, gammatable[(int)r]);
@@ -257,16 +257,16 @@ void loop() {
 
 
 void testColor(float r, float g, float b) {
-  if (r > 230, g > 230, b < 50) {
+  if (r > 230 && g > 230 && b < 50) {
     playFile("GOLD.WAV");
     delay(2000);
-  } else if (r < 30, 100 < g < 150, b > 230) {
+  } else if (r < 30 && 100 < g < 150 && b > 230) {
     playFile("SNOW.WAV");
     delay(2000);
-  } else if (r < 60, 60 < g < 100, b > 100) {
-    playFile("6INCH.WAV");
+  } else if (r < 60 && 60 < g < 100 && b > 100) {
+    playFile("IRREPLACEABLE.WAV");
     delay(2000);  
-  } else if (r < 65 , g < 65, b < 65) {
+  } else if (r < 65 && g < 65 && b < 65) {
     playFile("LUCIFER.WAV");
     delay(2000);
   }
@@ -277,7 +277,7 @@ void tiaTestsColor(float r, float g, float b){
   if (testBlack(r, g, b)){
     if (!luciferIsPlaying){
       playFile("LUCIFER.WAV");
-      luciferIsPLaying = true; 
+      luciferIsPlaying = true; 
       snowIsPlaying = false;
       goldIsPlaying = false;
       beyonceIsPlaying = false;
@@ -286,16 +286,16 @@ void tiaTestsColor(float r, float g, float b){
   else if (testWhite(r, g, b)){
     if (!snowIsPlaying){
       playFile("SNOW.WAV");
-      luciferIsPLaying = false; 
+      luciferIsPlaying = false; 
       snowIsPlaying = true;
       goldIsPlaying = false;
       beyonceIsPlaying = false;
     }
    } 
-   else if (testYellow(r, g, b)){
+   else if (testGold(r, g, b)){
     if (!goldIsPlaying){
       playFile("GOLD.WAV");
-      luciferIsPLaying = false; 
+      luciferIsPlaying = false; 
       snowIsPlaying = false;
       goldIsPlaying = true;
       beyonceIsPlaying = false;
@@ -303,8 +303,8 @@ void tiaTestsColor(float r, float g, float b){
    }
    else if (testBlue(r, g, b)){
     if (!beyonceIsPlaying){
-      playFile("6INCH.WAV");
-      luciferIsPLaying = false; 
+      playFile("IRREPLACEABLE.WAV");
+      luciferIsPlaying = false; 
       snowIsPlaying = false;
       goldIsPlaying = false;
       beyonceIsPlaying = true;
